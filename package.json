@@ -10,6 +10,7 @@
     "test": "tsx src/infrastructure/card-transfer/frames.test.ts"
   },
   "dependencies": {
+    "@vercel/analytics": "^2.0.1",
     "jsqr": "1.4.0",
     "next": "14.2.15",
     "qrcode": "1.5.4",
