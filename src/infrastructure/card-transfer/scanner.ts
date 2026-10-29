@@ -39,7 +39,7 @@ export async function startScanner(video: HTMLVideoElement, onText: (text: strin
   const tick = () => {
     if (stopped) return;
     if (video.readyState >= 2 && video.videoWidth > 0) {
-      const scale = Math.min(1, 960 / Math.max(video.videoWidth, video.videoHeight));
+      const scale = Math.min(1, 1280 / Math.max(video.videoWidth, video.videoHeight));
       const w = Math.round(video.videoWidth * scale);
       const h = Math.round(video.videoHeight * scale);
       if (canvas.width !== w) canvas.width = w;

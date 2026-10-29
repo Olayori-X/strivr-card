@@ -1,7 +1,7 @@
 // Strivr card transfer over a stream of QR codes. Pure functions, no browser APIs except btoa/atob.
 
 export const FRAME_PREFIX = "S1";
-export const CHUNK_BYTES = 520; // image bytes per frame, about 700 characters per QR code
+export const CHUNK_BYTES = 260; // image bytes per frame, about 700 characters per QR code
 export const MAX_PACKET_BYTES = 80 * 1024;
 export const ALLOWED_MIME = ["image/webp", "image/jpeg", "image/png"] as const;
 

@@ -129,7 +129,7 @@ const MAX_SENDABLE_BYTES = 60 * 1024; // the protocol allows 80 KB in total, hea
  * Shrinks a card image so it crosses in a few seconds. Tries WebP first, then JPEG,
  * lowering quality and then size until it is under the target.
  */
-export async function optimiseImage(src: Blob, targetBytes = 24 * 1024, maxWidth = 640): Promise<Optimised> {
+export async function optimiseImage(src: Blob, targetBytes = 16 * 1024, maxWidth = 640): Promise<Optimised> {
   const bmp = await createImageBitmap(src);
   try {
     let width = Math.min(maxWidth, bmp.width);

@@ -29,7 +29,7 @@ export async function prepareTransfer(
 }
 
 export function frameCountFor(imageBytes: number): number {
-  return Math.ceil((imageBytes + 160) / 520);
+  return Math.ceil((imageBytes + 160) / 260);
 }
 
 export interface ReceivedCard {
