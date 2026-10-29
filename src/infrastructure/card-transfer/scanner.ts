@@ -20,7 +20,7 @@ export async function startScanner(video: HTMLVideoElement, onText: (text: strin
     stopped = true;
     if (timer !== undefined) window.clearTimeout(timer);
     stream.getTracks().forEach((t) => t.stop());
-    video.srcObject = null;
+    if (video.srcObject === stream) video.srcObject = null;
   };
 
   video.srcObject = stream;

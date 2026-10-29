@@ -42,6 +42,7 @@ function cameraMessage(e: unknown): string {
 function Camera({ onCard }: { onCard: (c: ReceivedCard) => void }) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [cameraOn, setCameraOn] = useState(false);
+  const [seen, setSeen] = useState(0);
   const [error, setError] = useState<string | null>(null);
   const [warning, setWarning] = useState<string | null>(null);
   const [progress, setProgress] = useState({ received: 0, total: 0 });
@@ -58,6 +59,7 @@ function Camera({ onCard }: { onCard: (c: ReceivedCard) => void }) {
     setCameraOn(false);
 
     startScanner(video, (text) => {
+      setSeen((n) => n + 1);
       if (finished) return;
       const r = assembler.accept(text);
       if (r.status === "progress") {
@@ -130,12 +132,13 @@ function Camera({ onCard }: { onCard: (c: ReceivedCard) => void }) {
             <span className="pct">{pct}%</span>
           </div>
           <div className="meter"><i style={{ width: `${pct}%` }} /></div>
-          <p>
+          {/* <p>
             {warning ??
               (progress.total
                 ? `${progress.received} of ${progress.total} frames collected. Missing frames repeat on their screen.`
                 : "Waiting for a Strivr QR code. Ask them to open Share my card.")}
-          </p>
+          </p> */}
+          <p>QR reads: {seen}</p>
         </div>
       )}
     </div>
