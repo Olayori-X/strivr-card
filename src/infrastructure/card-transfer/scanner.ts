@@ -36,20 +36,36 @@ export async function startScanner(video: HTMLVideoElement, onText: (text: strin
     throw new Error("Canvas is not available");
   }
 
-  const tick = () => {
+  const Detector = (window as unknown as { BarcodeDetector?: new (o: object) => { detect(v: HTMLVideoElement): Promise<{ rawValue: string }[]> } }).BarcodeDetector;
+  const detector = Detector ? new Detector({ formats: ["qr_code"] }) : null;
+  let busy = false;
+
+  const tick = async () => {
     if (stopped) return;
-    if (video.readyState >= 2 && video.videoWidth > 0) {
-      const scale = Math.min(1, 1280 / Math.max(video.videoWidth, video.videoHeight));
-      const w = Math.round(video.videoWidth * scale);
-      const h = Math.round(video.videoHeight * scale);
-      if (canvas.width !== w) canvas.width = w;
-      if (canvas.height !== h) canvas.height = h;
-      ctx.drawImage(video, 0, 0, w, h);
-      const img = ctx.getImageData(0, 0, w, h);
-      const code = jsQR(img.data, w, h, { inversionAttempts: "dontInvert" });
-      if (code && code.data) onText(code.data);
+    if (video.readyState >= 2 && video.videoWidth > 0 && !busy) {
+      busy = true;
+      try {
+        if (detector) {
+          const codes = await detector.detect(video);
+          for (const c of codes) if (c.rawValue) onText(c.rawValue);
+        } else {
+          const scale = Math.min(1, 1280 / Math.max(video.videoWidth, video.videoHeight));
+          const w = Math.round(video.videoWidth * scale);
+          const h = Math.round(video.videoHeight * scale);
+          if (canvas.width !== w) canvas.width = w;
+          if (canvas.height !== h) canvas.height = h;
+          ctx.drawImage(video, 0, 0, w, h);
+          const img = ctx.getImageData(0, 0, w, h);
+          const code = jsQR(img.data, w, h, { inversionAttempts: "dontInvert" });
+          if (code && code.data) onText(code.data);
+        }
+      } catch {
+        /* skip this frame */
+      } finally {
+        busy = false;
+      }
     }
-    timer = window.setTimeout(tick, 30);
+    if (!stopped) timer = window.setTimeout(tick, 30);
   };
   tick();
   return stop;
