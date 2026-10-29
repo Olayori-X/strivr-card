@@ -28,6 +28,12 @@ interface BeforeInstallPromptEvent extends Event {
   userChoice: Promise<{ outcome: "accepted" | "dismissed" }>;
 }
 
+declare global {
+  interface Window {
+    __strivrInstall?: Event | null;
+  }
+}
+
 interface CardsContext {
   ready: boolean;
   mode: StoreKind | null;
@@ -169,6 +175,7 @@ export function CardsProvider({ children }: { children: React.ReactNode }) {
       window.matchMedia("(display-mode: standalone)").matches ||
       (navigator as unknown as { standalone?: boolean }).standalone === true;
     setIsStandalone(standalone);
+    if (window.__strivrInstall) setDeferredInstall(window.__strivrInstall as BeforeInstallPromptEvent);
     const onPrompt = (e: Event) => {
       e.preventDefault();
       setDeferredInstall(e as BeforeInstallPromptEvent);

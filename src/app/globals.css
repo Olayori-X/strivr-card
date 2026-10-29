@@ -248,6 +248,8 @@ h1, h2, h3, p { margin: 0; }
 .tabs { display: grid; grid-template-columns: 1fr 1fr; padding: 4px; background: var(--bg); border-radius: 12px; gap: 4px; }
 .tabs button { border: 0; background: transparent; min-height: 38px; border-radius: 9px; font-weight: 600; font-size: 14px; color: var(--muted); }
 .tabs button.on { background: #fff; color: var(--ink); box-shadow: 0 1px 3px rgba(10,42,77,.12); }
+.note-box { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; padding: 12px 14px; border-radius: 12px; background: var(--warn-bg); border: 1px solid var(--warn-line); color: var(--warn-ink); }
+.note-box p { font-size: 13.5px; line-height: 1.45; }
 .steps { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 4px; }
 .steps li { display: flex; align-items: center; gap: 12px; padding: 11px 0; font-size: 15px; }
 .steps li + li { border-top: 1px solid var(--line); }

@@ -3,7 +3,7 @@
   "name": "Strivr Card Folder",
   "short_name": "Strivr Cards",
   "description": "Your business cards, always with you.",
-  "start_url": "/cards",
+  "start_url": "/cards/",
   "scope": "/cards/",
   "display": "standalone",
   "orientation": "portrait",
