@@ -29,6 +29,8 @@ function fitText(ctx: CanvasRenderingContext2D, text: string, maxWidth: number):
   return t.trimEnd() + "…";
 }
 
+const CARD_FOOTER = "Made with Strivr Cards  ·  home.y-strivr.com";
+
 const FONT = '-apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif';
 
 /** Draws a simple business card from the person's details. 1000 x 572, the shape of a 3.5 x 2 inch card. */
@@ -92,6 +94,12 @@ export async function renderCardImage(p: Profile): Promise<Blob> {
   const line1 = [p.company, p.phone].filter(Boolean).join("  |  ");
   ctx.fillText(fitText(ctx, line1, maxW), 60, 472);
   ctx.fillText(fitText(ctx, p.email, maxW), 60, 516);
+
+  // Footer. The card is shrunk to ~480px wide before sending, so keep this large enough to stay readable.
+  ctx.textAlign = "right";
+  ctx.fillStyle = dark ? "rgba(255,255,255,0.7)" : "#7D90A8";
+  ctx.font = `500 26px ${FONT}`;
+  ctx.fillText(CARD_FOOTER, W - 60, 556);
 
   const blob = await canvasToBlob(canvas, "image/png");
   if (!blob) throw new Error("Could not draw the card");

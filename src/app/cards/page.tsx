@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { track } from "@vercel/analytics";
 import { CardRow } from "@/components/CardBits";
 import { InstallSheet } from "@/components/InstallSheet";
 import { QrIcon, ScanIcon } from "@/components/Icons";
@@ -12,6 +13,7 @@ export default function HomePage() {
   const [installOpen, setInstallOpen] = useState(false);
 
   const needsReconnect = access === "needs-permission";
+  const hasCards = cards.length > 0;
   const pill =
     mode === "folder" ? "Folder connected" : mode === "gallery" ? "Gallery" : "Private folder";
 
@@ -83,12 +85,20 @@ export default function HomePage() {
         cards.slice(0, 3).map((c) => <CardRow key={c.id} card={c} />)
       )}
 
-      <a className="row promo" href="https://home.y-strivr.com" target="_blank" rel="noopener noreferrer">
-        <p>
-          Optimize your business processes
-          <br />
-          <span style={{ color: "var(--blue-700)", fontWeight: 700 }}>home.y-strivr.com</span>
-        </p>
+      <a
+        className="row promo-strivr"
+        href={`https://home.y-strivr.com/?utm_source=cards&utm_medium=app&utm_campaign=home-promo&utm_content=${hasCards ? "has-cards" : "no-cards"}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        onClick={() => track("strivr_promo_click", { cards: Math.min(cards.length, 10) })}
+      >
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/icons/strivr-192.png" alt="" />
+        <div className="grow">
+          <strong>{hasCards ? "You're building your network." : "Onboard new hires without chasing paperwork."}</strong>
+          <span className="sub">{hasCards ? "Run your team just as easily with Strivr." : "Contracts, signatures and approvals in one place."}</span>
+        </div>
+        <span className="promo-cta">See how it works</span>
       </a>
 
       {!isStandalone && (

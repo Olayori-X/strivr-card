@@ -127,6 +127,17 @@ h1, h2, h3, p { margin: 0; }
 .promo { background: var(--cyan-50); border-color: #cfeafb; }
 .promo p { font-size: 14px; font-weight: 600; flex: 1; line-height: 1.3; }
 .promo img { width: 36px; height: 36px; object-fit: contain; border: 0; background: none; }
+.promo-strivr {
+  background: linear-gradient(135deg, var(--navy-800), var(--blue-700)); border-color: transparent; color: #fff;
+  padding: 12px; gap: 12px;
+}
+.promo-strivr img { width: 40px; height: 40px; object-fit: contain; border: 0; background: none; border-radius: 10px; }
+.promo-strivr strong { font-size: 14.5px; line-height: 1.25; white-space: normal; }
+.promo-strivr span.sub { color: rgba(255,255,255,.82); white-space: normal; margin-top: 2px; }
+.promo-cta {
+  flex: none; background: var(--cyan-500); color: #fff; font-size: 12.5px; font-weight: 700;
+  padding: 8px 12px; border-radius: 10px; white-space: nowrap;
+}
 
 .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .tile { background: none; border: 0; padding: 0; text-align: left; }
