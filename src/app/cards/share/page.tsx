@@ -113,10 +113,8 @@ export default function SharePage() {
         <button className="link-btn" onClick={() => fileRef.current?.click()}>
           <ImageIcon size={18} /> Change image from gallery
         </button>
-        {myCardImage ? (
+        {myCardImage && (
           <button className="link-btn" onClick={() => setMyCardImage(null)}>Use drawn card</button>
-        ) : (
-          <button className="link-btn" onClick={() => setEditOpen(true)}>Edit details</button>
         )}
         <input ref={fileRef} type="file" accept="image/*" hidden onChange={(e) => onPick(e.target.files)} />
       </div>
@@ -132,6 +130,36 @@ export default function SharePage() {
         />
         <p className="hint">This becomes the file name on their phone.</p>
       </div>
+
+      {!myCardImage && (
+        <>
+          {(
+            [
+              ["title", "Role"],
+              ["company", "Organization"],
+              ["phone", "Phone number"],
+              ["email", "Email"],
+            ] as const
+          ).map(([key, label]) => (
+            <div key={key}>
+              <label className="field-label" htmlFor={`f-${key}`}>{label}</label>
+              <input
+                id={`f-${key}`}
+                className="input"
+                type={key === "phone" ? "tel" : key === "email" ? "email" : "text"}
+                value={profile[key]}
+                maxLength={80}
+                onChange={(e) => setProfile({ ...profile, [key]: e.target.value })}
+              />
+            </div>
+          ))}
+
+          <div className="tabs" role="group" aria-label="Card style">
+            <button className={profile.theme === "white" ? "on" : ""} onClick={() => setProfile({ ...profile, theme: "white" })}>Light card</button>
+            <button className={profile.theme === "navy" ? "on" : ""} onClick={() => setProfile({ ...profile, theme: "navy" })}>Navy card</button>
+          </div>
+        </>
+      )}
 
       {problem ? (
         <div className="notice notice-warn"><span>{problem}</span></div>
