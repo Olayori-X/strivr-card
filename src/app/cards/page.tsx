@@ -8,7 +8,7 @@ import { QrIcon, ScanIcon } from "@/components/Icons";
 import { useCards } from "@/features/cards/CardsProvider";
 
 export default function HomePage() {
-  const { cards, mode, access, reconnect, isStandalone, folderLabel, toast } = useCards();
+  const { cards, mode, access, reconnect, isStandalone, folderLabel, toast, canInstall, promptInstall } = useCards();
   const [installOpen, setInstallOpen] = useState(false);
 
   const needsReconnect = access === "needs-permission";
@@ -17,6 +17,14 @@ export default function HomePage() {
 
   const onReconnect = async () => {
     if (!(await reconnect())) toast("We could not reconnect. Open Folder access to choose the folder again.");
+  };
+
+  const onAdd = async () => {
+    if (canInstall) {
+      if (await promptInstall()) toast("Strivr Cards added");
+      return;
+    }
+    setInstallOpen(true);
   };
 
   return (
@@ -75,12 +83,20 @@ export default function HomePage() {
         cards.slice(0, 3).map((c) => <CardRow key={c.id} card={c} />)
       )}
 
+      <a className="row promo" href="https://home.y-strivr.com" target="_blank" rel="noopener noreferrer">
+        <p>
+          Optimize your business processes
+          <br />
+          <span style={{ color: "var(--blue-700)", fontWeight: 700 }}>home.y-strivr.com</span>
+        </p>
+      </a>
+
       {!isStandalone && (
         <div className="row promo">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/icons/strivr-192.png" alt="" />
           <p>Add Strivr Cards to your home screen</p>
-          <button className="btn btn-primary btn-sm" onClick={() => setInstallOpen(true)}>Add</button>
+          <button className="btn btn-primary btn-sm" onClick={onAdd}>Add</button>
         </div>
       )}
 
