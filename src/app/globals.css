@@ -192,8 +192,8 @@ h1, h2, h3, p { margin: 0; }
 /* ---------- share (dark) ---------- */
 .dark h1, .dark h2 { color: #fff; }
 .center { text-align: center; }
-.qr-panel { background: #fff; border-radius: 22px; padding: 12px; aspect-ratio: 1; display: grid; place-items: center; }
-.qr-panel canvas { width: 100%; height: 100%; image-rendering: pixelated; display: block; }
+.qr-panel { background: #fff; border-radius: 22px; padding: 12px; aspect-ratio: 1; display: grid; place-items: center; overflow: hidden; }
+.qr-panel canvas { width: 100% !important; height: 100% !important; image-rendering: pixelated; display: block; }
 .meter { height: 6px; border-radius: 99px; background: rgba(255,255,255,.18); overflow: hidden; }
 .meter > i { display: block; height: 100%; background: var(--cyan-500); border-radius: 99px; transition: width .15s linear; }
 .meter-meta { display: flex; justify-content: space-between; font-size: 13px; opacity: .9; margin-bottom: 8px; }
