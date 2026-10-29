@@ -10,7 +10,7 @@ export interface Profile {
 }
 
 export const DEFAULT_PROFILE: Profile = {
-  name: "Olayori Latubosun",
+  name: "John Doe",
   title: "Founder",
   company: "Strivr",
   phone: "+234 800 000 0000",

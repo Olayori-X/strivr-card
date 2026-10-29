@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { toCanvas } from "qrcode";
 import { BackIcon, CheckIcon, ImageIcon, QrIcon } from "@/components/Icons";
-import { Sheet } from "@/components/Sheet";
+// import { Sheet } from "@/components/Sheet";
 import { useCards } from "@/features/cards/CardsProvider";
 import { frameCountFor, prepareTransfer, type PreparedTransfer } from "@/infrastructure/card-transfer/transfer";
 import { formatBytes } from "@/lib/format";
@@ -18,7 +18,6 @@ export default function SharePage() {
   const [optimised, setOptimised] = useState<Optimised | null>(null);
   const [problem, setProblem] = useState<string | null>(null);
   const [prepared, setPrepared] = useState<PreparedTransfer | null>(null);
-  const [editOpen, setEditOpen] = useState(false);
   const [busy, setBusy] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
 
@@ -182,8 +181,6 @@ export default function SharePage() {
       <button className="btn btn-primary" disabled={!optimised || busy || !profile.name.trim()} onClick={onShow}>
         <QrIcon size={20} /> Show QR code
       </button>
-
-      <DetailsSheet open={editOpen} onClose={() => setEditOpen(false)} profile={profile} onChange={setProfile} />
     </div>
   );
 }
@@ -269,43 +266,43 @@ function QrStage({ prepared, onDone }: { prepared: PreparedTransfer; onDone: () 
 
 /* ------------------------------ details editor ------------------------------ */
 
-function DetailsSheet({
-  open,
-  onClose,
-  profile,
-  onChange,
-}: {
-  open: boolean;
-  onClose: () => void;
-  profile: Profile;
-  onChange: (p: Profile) => void;
-}) {
-  const field = (key: keyof Omit<Profile, "theme">, label: string, type = "text") => (
-    <div key={key}>
-      <label className="field-label" htmlFor={`f-${key}`}>{label}</label>
-      <input
-        id={`f-${key}`}
-        className="input"
-        type={type}
-        value={profile[key]}
-        maxLength={80}
-        onChange={(e) => onChange({ ...profile, [key]: e.target.value })}
-      />
-    </div>
-  );
-  return (
-    <Sheet open={open} onClose={onClose} label="Your card details">
-      <h2 style={{ fontSize: 20, fontWeight: 800 }}>Your card details</h2>
-      {field("name", "Name")}
-      {field("title", "Job title")}
-      {field("company", "Company")}
-      {field("phone", "Phone", "tel")}
-      {field("email", "Email", "email")}
-      <div className="tabs" role="group" aria-label="Card style">
-        <button className={profile.theme === "white" ? "on" : ""} onClick={() => onChange({ ...profile, theme: "white" })}>Light card</button>
-        <button className={profile.theme === "navy" ? "on" : ""} onClick={() => onChange({ ...profile, theme: "navy" })}>Navy card</button>
-      </div>
-      <button className="btn btn-primary" onClick={onClose}>Done</button>
-    </Sheet>
-  );
-}
+// function DetailsSheet({
+//   open,
+//   onClose,
+//   profile,
+//   onChange,
+// }: {
+//   open: boolean;
+//   onClose: () => void;
+//   profile: Profile;
+//   onChange: (p: Profile) => void;
+// }) {
+//   const field = (key: keyof Omit<Profile, "theme">, label: string, type = "text") => (
+//     <div key={key}>
+//       <label className="field-label" htmlFor={`f-${key}`}>{label}</label>
+//       <input
+//         id={`f-${key}`}
+//         className="input"
+//         type={type}
+//         value={profile[key]}
+//         maxLength={80}
+//         onChange={(e) => onChange({ ...profile, [key]: e.target.value })}
+//       />
+//     </div>
+//   );
+//   return (
+//     <Sheet open={open} onClose={onClose} label="Your card details">
+//       <h2 style={{ fontSize: 20, fontWeight: 800 }}>Your card details</h2>
+//       {field("name", "Name")}
+//       {field("title", "Job title")}
+//       {field("company", "Company")}
+//       {field("phone", "Phone", "tel")}
+//       {field("email", "Email", "email")}
+//       <div className="tabs" role="group" aria-label="Card style">
+//         <button className={profile.theme === "white" ? "on" : ""} onClick={() => onChange({ ...profile, theme: "white" })}>Light card</button>
+//         <button className={profile.theme === "navy" ? "on" : ""} onClick={() => onChange({ ...profile, theme: "navy" })}>Navy card</button>
+//       </div>
+//       <button className="btn btn-primary" onClick={onClose}>Done</button>
+//     </Sheet>
+//   );
+// }
