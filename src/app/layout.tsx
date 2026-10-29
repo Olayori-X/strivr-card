@@ -6,7 +6,7 @@ import { Analytics } from "@vercel/analytics/next"
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
 
 export const metadata: Metadata = {
-  title: "Strivr Card Folder",
+  title: "Strivr Cards",
   description: "Your business cards, always with you.",
   icons: { icon: "/icons/favicon-32.png", apple: "/icons/apple-touch-icon.png" },
 };
