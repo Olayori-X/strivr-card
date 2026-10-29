@@ -1,0 +1,17 @@
+{
+  "id": "/cards",
+  "name": "Strivr Card Folder",
+  "short_name": "Strivr Cards",
+  "description": "Your business cards, always with you.",
+  "start_url": "/cards",
+  "scope": "/cards/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0A2A4D",
+  "theme_color": "#0F74BA",
+  "icons": [
+    { "src": "/icons/strivr-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/strivr-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/strivr-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
