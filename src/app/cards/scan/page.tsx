@@ -132,13 +132,12 @@ function Camera({ onCard }: { onCard: (c: ReceivedCard) => void }) {
             <span className="pct">{pct}%</span>
           </div>
           <div className="meter"><i style={{ width: `${pct}%` }} /></div>
-          {/* <p>
+          <p>
             {warning ??
               (progress.total
                 ? `${progress.received} of ${progress.total} frames collected. Missing frames repeat on their screen.`
                 : "Waiting for a Strivr QR code. Ask them to open Share my card.")}
-          </p> */}
-          <p>QR reads: {seen}</p>
+          </p>
         </div>
       )}
     </div>
